@@ -8,14 +8,16 @@ public class DungeonGenerator : MonoBehaviour
 
     public GameObject tileTest;
 
-    List<GameObject> tilesList = new List<GameObject>();
+    Dictionary<Vector2Int, GridCell> cells = new();
 
-    void Start()
+    private static readonly Dictionary<Direction, Vector2Int> dirToVector = new Dictionary<Direction, Vector2Int>
     {
+        {Direction.North, Vector2Int.up },
+        {Direction.South, Vector2Int.down },
+        {Direction.East, Vector2Int.right },
+        {Direction.West, Vector2Int.left }
+    };
 
-    }
-
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
@@ -27,11 +29,12 @@ public class DungeonGenerator : MonoBehaviour
 
     private void ClearDungeon()
     {
-        foreach (GameObject tile in tilesList)
+        foreach (GridCell cell in cells.Values)
         {
-            Destroy(tile);
+            Destroy(cell.gameObject);
         }
 
+        cells.Clear();
     }
 
     private void GenerateGrid()
@@ -52,7 +55,25 @@ public class DungeonGenerator : MonoBehaviour
         Vector3 worldPos = new Vector3(position.x * cellSize, 0f, position.y * cellSize);
 
         GameObject newTile = Instantiate(tileTest, worldPos, Quaternion.identity);
-        tilesList.Add(newTile);
+
+        GridCell newCell = newTile.GetComponent<GridCell>();
+        newCell.InitiliazeCell(position);
+
+        cells.Add(position, newCell);
+    }
+
+    public GridCell GetCellToDirection(GridCell inputCell, Direction direction)
+    {
+        Vector2Int outputCellPosition = inputCell.cellPosition + dirToVector[direction];
+
+        return GetCellAtPosition(outputCellPosition);
+    }
+
+    public GridCell GetCellAtPosition(Vector2Int position)
+    {
+        cells.TryGetValue(position, out GridCell cell);
+
+        return cell;
     }
 
     private void OnDrawGizmos()
@@ -68,5 +89,12 @@ public class DungeonGenerator : MonoBehaviour
             }
         }
     }
+}
 
+public enum Direction
+{
+    North,
+    South,
+    West,
+    East
 }
