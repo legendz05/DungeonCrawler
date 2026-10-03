@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8cab3de05da42e42a34ab7817eea485, type: 3}
   m_Name: TileDataBase
   m_EditorClassIdentifier: Assembly-CSharp::TileDataBase
-  tiles:
-  - {fileID: 969552437308346889, guid: 26c7376cd580d644f80b42bc3348ba94, type: 3}
-  - {fileID: 969552437308346889, guid: 161bb2ebda8195f459082e63ff6606a3, type: 3}
-  - {fileID: 969552437308346889, guid: 46d9129b80a28ce44b54ca3bf7e55248, type: 3}
+  tilePrefabs:
+  - key: 0
+    value: []
+  - key: 1
+    value: []

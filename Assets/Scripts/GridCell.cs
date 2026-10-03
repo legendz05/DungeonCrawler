@@ -10,8 +10,10 @@ public class GridCell : MonoBehaviour
     public ConnectionTypes northConnection, southConnection, westConnection, eastConnection;
     public Transform northPoint, southPoint, westPoint, eastPoint;
 
-    public Dictionary<Direction, ConnectionTypes> connections = new Dictionary<Direction, ConnectionTypes>();
-    public Dictionary<Direction, Transform> directionPoints = new Dictionary<Direction, Transform>();
+    [SerializeField]
+    public Dictionary<Direction, ConnectionTypes> connections = new();
+    [SerializeField]
+    public Dictionary<Direction, Transform> directionPoints = new();
 
     public void InitiliazeCell(Vector2Int position)
     {
@@ -50,7 +52,6 @@ public class GridCell : MonoBehaviour
 }
 public enum ConnectionTypes
 {
-    Corridor,
     Wall,
     Doorway
 }
