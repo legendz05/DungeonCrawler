@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8964268773358427237}
   - component: {fileID: 2572577482487459388}
   m_Layer: 0
-  m_Name: TileTest
+  m_Name: EdgeTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46,7 +46,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GridCell
   cellPosition: {x: 0, y: 0}
-  tileOnCell: {fileID: 0}
+  isCornerCell: 0
+  isEdgeCell: 0
+  northConnection: 0
+  southConnection: 0
+  westConnection: 0
+  eastConnection: 0
 --- !u!1 &5344655882654510051
 GameObject:
   m_ObjectHideFlags: 0
@@ -114,7 +119,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: e3b5c544e8a663f4696a6add7a892db1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class DungeonGenerator : MonoBehaviour
 {
+    public static DungeonGenerator Instance;
+
     [SerializeField] int dungeonSizeX, dungeonSizeY;
     private const int cellSize = 10;
 
@@ -17,6 +19,14 @@ public class DungeonGenerator : MonoBehaviour
         {Direction.East, Vector2Int.right },
         {Direction.West, Vector2Int.left }
     };
+
+    private void Awake()
+    {
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(gameObject);
+    }
 
     void Update()
     {
@@ -58,7 +68,7 @@ public class DungeonGenerator : MonoBehaviour
 
         GridCell newCell = newTile.GetComponent<GridCell>();
         newCell.InitiliazeCell(position);
-        newCell.UpdateCell(isCorner: IsCellACorner(newCell));
+        newCell.UpdateCell(isCorner: IsCellACorner(newCell), isEdge: IsCellAnEdge(newCell));
         cells.Add(position, newCell);
     }
 
@@ -83,6 +93,16 @@ public class DungeonGenerator : MonoBehaviour
             return true;
         }
         else if (cell.cellPosition.x == dungeonSizeX - 1 && (cell.cellPosition.y == 0 || cell.cellPosition.y == dungeonSizeY - 1))
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    public bool IsCellAnEdge(GridCell cell)
+    {
+        if ((cell.cellPosition.x == 0 || cell.cellPosition.x == dungeonSizeX - 1 || cell.cellPosition.y == 0 || cell.cellPosition.y == dungeonSizeY - 1) && !IsCellACorner(cell))
         {
             return true;
         }
