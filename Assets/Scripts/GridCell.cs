@@ -4,6 +4,7 @@ using UnityEngine;
 public class GridCell : MonoBehaviour
 {
     public Vector2Int cellPosition;
+    public bool isCornerCell;
 
     public TileConnection northConnection, southConnection, westConnection, eastConnection;
 
@@ -20,6 +21,14 @@ public class GridCell : MonoBehaviour
             { Direction.West, westConnection},
             { Direction.East, eastConnection}
         };
+    }
+
+    public void UpdateCell(Vector2Int position = default, bool isCorner = false)
+    {
+        if (position != default)
+            cellPosition = position;
+
+        isCornerCell = isCorner;
     }
 }
 public enum TileConnection

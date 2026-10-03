@@ -58,7 +58,7 @@ public class DungeonGenerator : MonoBehaviour
 
         GridCell newCell = newTile.GetComponent<GridCell>();
         newCell.InitiliazeCell(position);
-
+        newCell.UpdateCell(isCorner: IsCellACorner(newCell));
         cells.Add(position, newCell);
     }
 
@@ -74,6 +74,20 @@ public class DungeonGenerator : MonoBehaviour
         cells.TryGetValue(position, out GridCell cell);
 
         return cell;
+    }
+
+    public bool IsCellACorner(GridCell cell)
+    {
+        if (cell.cellPosition.x == 0 && (cell.cellPosition.y == 0 || cell.cellPosition.y == dungeonSizeY - 1))
+        {
+            return true;
+        }
+        else if (cell.cellPosition.x == dungeonSizeX - 1 && (cell.cellPosition.y == 0 || cell.cellPosition.y == dungeonSizeY - 1))
+        {
+            return true;
+        }
+
+        return false;
     }
 
     private void OnDrawGizmos()
